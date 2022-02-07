@@ -29,7 +29,9 @@ const resolvers = {
 
 // Apollo Server Setup
 const server = new ApolloServer({
-    schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
+    typeDefs,
+    mocks
+    // schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
 });
   
 server.listen({ port }).then(({ url }) => {
