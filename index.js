@@ -29,10 +29,13 @@ const resolvers = {
 // Apollo Server Setup
 const server = new ApolloServer({
     typeDefs,
-    mocks
-    // schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
+    resolvers,
 });
   
-server.listen({ port }).then(({ url }) => {
-    console.log(`Users service ready at ${url}`);
+server.listen().then(() => {
+    console.log(`
+        🚀  Server is running!
+        🔉  Listening on port 4000
+        📭  Query at https://studio.apollographql.com/dev
+    `);
 });
