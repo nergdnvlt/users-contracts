@@ -7,7 +7,7 @@ const typeDefs = gql(fs.readFileSync("./users.graphql", 'utf8'));
 const users = require("./data/users.js");
 
 // Variable Definitions
-const port = process.env.PORT || 4003
+const port = process.env.PORT
 // inserting comment for test deploy.
 
 const resolvers = {
@@ -27,15 +27,18 @@ const resolvers = {
 };
 
 // Apollo Server Setup
-const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-});
+async function startApolloServer(typeDefs, resolvers) {
+    const server = new ApolloServer({
+        typeDefs,
+        resolvers,
+    });
   
-server.listen().then(() => {
+    const { url, port } = await server.listen();
     console.log(`
-        🚀  Server is running!
-        🔉  Listening on port 4000
-        📭  Query at https://studio.apollographql.com/dev
+        🚀  Server is running
+        🔉  Listening on port ${port}
+        📭  Query at ${url}
     `);
-});
+}
+
+startApolloServer(typeDefs, resolvers);
