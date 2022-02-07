@@ -4,8 +4,15 @@ directive @tag(name: String!) repeatable on
   | OBJECT
   | UNION
 
+type Query {
+    "Get a list of all users"
+    users: [User] 
+    "Get a single user."
+    user(id: ID!): User!
+}
+
 "User account information"
-type User @key(fields: "id") {
+type User {
     "Internal user ID"
     id: ID!
     "The user's first name"
@@ -20,11 +27,4 @@ type User @key(fields: "id") {
     address: String @tag(name: "private")
     "The user's shipping email."
     email: String!
-}
-
-extend type Query {
-    "Get a list of all users"
-    users: [User] 
-    "Get a single user."
-    user(id: ID!): User!
 }

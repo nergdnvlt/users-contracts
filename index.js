@@ -7,7 +7,7 @@ const typeDefs = gql(fs.readFileSync("./users.graphql", 'utf8'));
 const users = require("./data/users.js");
 
 // Variable Definitions
-const port = process.env.PORT
+const port = process.env.PORT || 4000;
 // inserting comment for test deploy.
 
 const resolvers = {
@@ -27,13 +27,13 @@ const resolvers = {
 };
 
 // Apollo Server Setup
-async function startApolloServer(typeDefs, resolvers) {
+async function startApolloServer(typeDefs, resolvers, port) {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
     });
   
-    const { url, port } = await server.listen();
+    const { url } = await server.listen({ port });
     console.log(`
         🚀  Server is running
         🔉  Listening on port ${port}
@@ -41,4 +41,4 @@ async function startApolloServer(typeDefs, resolvers) {
     `);
 }
 
-startApolloServer(typeDefs, resolvers);
+startApolloServer(typeDefs, resolvers, port);
